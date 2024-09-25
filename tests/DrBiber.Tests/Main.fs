@@ -2,12 +2,8 @@ module Main.Tests
 
 open Fable.Pyxpecto
 
-let all = testSequenced <| testList "DynamicObj" [
-    ReflectionUtils.Tests.main
-    DynamicObj.Tests.main
-    DynObj.Tests.main
-    Inheritance.Tests.main
-    Interface.Tests.main
+let all = testSequenced <| testList "BibTex" [
+    Reader.Tests.main
 ]
 
 [<EntryPoint>]

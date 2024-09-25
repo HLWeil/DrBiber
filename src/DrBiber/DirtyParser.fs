@@ -22,40 +22,32 @@ let tryParseBibtexField (i : int) (bibtex:string) =
     let returnName() = Some (nameBuilder.ToString().Trim(), valueBuilder.ToString().Trim()), i
     let rec loop() = 
         let current = bibtex.[i]
-        printfn "Current: %A" current
         if current = ',' && insideBrace.IsNone then
-            printfn "Case1"
             returnName()
         elif current = '}' && insideBrace = Some '{' then
-            printfn "Case2"
+            returnName()
+        elif current = '}' && insideBrace = None && afterEquals then
             returnName()
         elif current = '{' && insideBrace = None then
-            printfn "Case3"
             insideBrace <- Some '{'
             i <- i + 1
             loop()
         elif current = '\"' && insideBrace = Some  '\"' then
-            printfn "Case4"           
             returnName()
         elif current = '\"' && insideBrace = None then
-            printfn "Case5"
             insideBrace <- Some '\"'
             i <- i + 1
             loop()
         elif current = '=' && insideBrace.IsNone then
-            printfn "Case6"
             afterEquals <- true
             i <- i + 1
             loop()
         elif current = '}' && insideBrace = None then
-            printfn "Case7"
             None, i
         else
             if afterEquals then
-                printfn "Case8"
                 valueBuilder.Append(current) |> ignore
             else
-                printfn "Case9"
                 nameBuilder.Append(current) |> ignore
             i <- i + 1
             loop()           

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -8,9 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="ReflectionUtils.fs" />
+    <None Include="TestFiles/SingleEntry_Mixed.bib" />
+    <Compile Include="Reader.Tests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
+
+  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Fable.Pyxpecto" Version="1.2.0" />
