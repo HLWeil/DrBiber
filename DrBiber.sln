@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{39AA72A1-A628-481B-A2B5-94E2BD163061}"
+	ProjectSection(SolutionItems) = preProject
+		build.cmd = build.cmd
+		build.sh = build.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".ci", ".ci", "{F82A6F26-517C-4D5E-BD4F-BFC45B5867FE}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-and-deploy-docs.yml = .github\workflows\build-and-deploy-docs.yml
+		.github\workflows\build-and-test.yml = .github\workflows\build-and-test.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".proj", ".proj", "{C3CF2F15-81C7-4C11-889E-5FCA2C8A981D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		build.cmd = build.cmd
+		build.sh = build.sh
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+		global.json = global.json
+		key.snk = key.snk
+		LICENSE = LICENSE
+		package.json = package.json
+		pyproject.toml = pyproject.toml
+		README.md = README.md
+		RELEASE_NOTES.md = RELEASE_NOTES.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{988D804A-3A42-4E46-B233-B64F5C22524B}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "build", "build\build.fsproj", "{C73AB951-91F2-4668-B2E0-B58298E5F664}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E0867002-4410-4E5F-BE71-46ABBE93ED07}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "DrBiber", "src\DrBiber\DrBiber.fsproj", "{EB7140CA-5F11-4BD7-913A-13B66705E415}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "DrBiber.Tests", "tests\DrBiber.Tests\DrBiber.Tests.fsproj", "{643B084C-1E18-4676-B48B-F79C9DDA197C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C73AB951-91F2-4668-B2E0-B58298E5F664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C73AB951-91F2-4668-B2E0-B58298E5F664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C73AB951-91F2-4668-B2E0-B58298E5F664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C73AB951-91F2-4668-B2E0-B58298E5F664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB7140CA-5F11-4BD7-913A-13B66705E415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB7140CA-5F11-4BD7-913A-13B66705E415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB7140CA-5F11-4BD7-913A-13B66705E415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB7140CA-5F11-4BD7-913A-13B66705E415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{643B084C-1E18-4676-B48B-F79C9DDA197C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{643B084C-1E18-4676-B48B-F79C9DDA197C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{643B084C-1E18-4676-B48B-F79C9DDA197C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{643B084C-1E18-4676-B48B-F79C9DDA197C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C73AB951-91F2-4668-B2E0-B58298E5F664} = {39AA72A1-A628-481B-A2B5-94E2BD163061}
+		{EB7140CA-5F11-4BD7-913A-13B66705E415} = {E0867002-4410-4E5F-BE71-46ABBE93ED07}
+		{643B084C-1E18-4676-B48B-F79C9DDA197C} = {988D804A-3A42-4E46-B233-B64F5C22524B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F5C3597-4524-4A4E-94EC-44857BD0BCEC}
+	EndGlobalSection
+EndGlobal

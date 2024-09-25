@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../../key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Heinrich Lukas Weil</Authors>
+    <Description>F# library for BibTex parsing.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://csbiology.github.io/DynamicObj/</PackageProjectUrl>
+    <PackageTags>F# FSharp dotnet BibTex BIB</PackageTags>
+    <RepositoryUrl>https://github.com/HLWeil/DrBiber</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <FsDocsLicenseLink>https://github.com/HLWeil/DrBiber/blob/main/LICENSE</FsDocsLicenseLink>
+    <FsDocsReleaseNotesLink>https://github.com/HLWeil/DrBiber/blob/main/RELEASE_NOTES.md</FsDocsReleaseNotesLink>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="DataModel.fs" />
+    <Compile Include="DirtyParser.fs" />
+    <None Include="Playground.fsx" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="DynamicObj" Version="3.1.0" />
+    <PackageReference Include="Fable.Core" Version="4.3.0" />
+    <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
+  </ItemGroup>
+  
+</Project>
