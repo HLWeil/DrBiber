@@ -73,12 +73,12 @@ let tests_Entry = testList "TryParseBibTexEntry" [
         let entry,i = DirtyParser.parseBibTexEntry (i + 1) s
         
         Expect.equal entry.EntryType "article" "Should have correct entry type"
-        Expect.equal entry.CiteKey (Some "qiao_legume_2024") "Should have correct citekey"
+        Expect.equal entry.CiteKey "qiao_legume_2024" "Should have correct citekey"
 
-        let volume = Expect.wantSome (entry.TryGetValue "volume") "Should have volume"
+        let volume = Expect.wantSome (entry.TryGetPropertyValue "volume") "Should have volume"
         Expect.equal volume "15" "Should have correct volume"
 
-        let pages = Expect.wantSome (entry.TryGetValue "pages") "Should have pages"
+        let pages = Expect.wantSome (entry.TryGetPropertyValue "pages") "Should have pages"
         Expect.equal pages "2924" "Should have correct pages"
 ] 
 
@@ -90,12 +90,12 @@ let tests_File = testList "TryParseBibTexFile" [
         Expect.hasLength entries 1 "Should have one entry"
         let entry = entries.[0]
         Expect.equal entry.EntryType "article" "Should have correct entry type"
-        Expect.equal entry.CiteKey (Some "qiao_legume_2024") "Should have correct citekey"
+        Expect.equal entry.CiteKey "qiao_legume_2024" "Should have correct citekey"
 
-        let volume = Expect.wantSome (entry.TryGetValue "volume") "Should have volume"
+        let volume = Expect.wantSome (entry.TryGetPropertyValue "volume") "Should have volume"
         Expect.equal volume "15" "Should have correct volume"
 
-        let pages = Expect.wantSome (entry.TryGetValue "pages") "Should have pages"
+        let pages = Expect.wantSome (entry.TryGetPropertyValue "pages") "Should have pages"
         Expect.equal pages "2924" "Should have correct pages"
 
     testCase "MultipleEntries" <| fun _ ->
@@ -112,9 +112,9 @@ let tests_File = testList "TryParseBibTexFile" [
         let entry2 = entries.[1]
                 
         Expect.equal entry1.EntryType "article" "Should have correct entry type"        
-        Expect.equal entry1.CiteKey (Some "shen_arabidopsis_2024") "Should have correct citekey"
+        Expect.equal entry1.CiteKey "shen_arabidopsis_2024" "Should have correct citekey"
         Expect.equal entry2.EntryType "article" "Should have correct entry type"        
-        Expect.equal entry2.CiteKey (Some "uflewski_thylakoid_2024") "Should have correct citekey"
+        Expect.equal entry2.CiteKey "uflewski_thylakoid_2024" "Should have correct citekey"
 
 ]
 

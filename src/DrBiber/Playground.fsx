@@ -1,19 +1,8 @@
-#r "nuget: Newtonsoft.Json"
-#r "nuget: Fable.Core"
-#r "nuget: Fable.Pyxpecto"
+#r "nuget: DynamicObj, 4.0.0"
 
-#load "./ReflectionUtils.fs"
-#load "./DynamicObj.fs"
-#load "./DynObj.fs"
+#r "bin/Debug/netstandard2.0/DrBiber.dll"
 
-open Fable.Pyxpecto
-open DynamicObj
+let bibTexEntry = new DrBiber.BibTexEntry("article", "citekey")
 
-
-let a = DynamicObj ()
-a.SetValue("aaa", 5)
-let b = DynamicObj ()
-b.SetValue("aaa", 5)
-
-
-a.GetProperties(true)
+bibTexEntry
+|> DynamicObj.DynObj.format

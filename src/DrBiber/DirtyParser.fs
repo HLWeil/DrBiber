@@ -96,7 +96,7 @@ let parseBibTexEntry (i : int) (bibtex:string) =
             let kv,j = tryParseBibtexField (i+1) bibtex
             match kv with
             | Some (name,value) -> 
-                entry.SetValue(name,value)
+                entry.SetProperty(name,value)
                 i <- j + 1
             | None ->
                 i <- j
@@ -105,7 +105,7 @@ let parseBibTexEntry (i : int) (bibtex:string) =
             let kv,j = tryParseBibtexField (i) bibtex
             match kv with
             | Some (name,value) -> 
-                entry.SetValue(name,value)          
+                entry.SetProperty(name,value)          
                 i <- j + 1
             | None ->
                 i <- j
