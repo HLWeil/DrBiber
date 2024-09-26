@@ -1,5 +1,7 @@
-### 0.0.1+a5e9681 (Released 2024-9-26)
+### 0.0.1+4596fb9 (Released 2024-9-26)
 * Additions:
+    * [[#4596fb9](https://github.com/HLWeil/DrBiber/commit/4596fb9acb5c8ad89274e28c5775364473dabca5)] add doi parsing
+    * [[#df81ffc](https://github.com/HLWeil/DrBiber/commit/df81ffc969ff06d52954890699e553268797ea42)] ready to publish
     * [[#a08cbd4](https://github.com/HLWeil/DrBiber/commit/a08cbd4c55a1c2482a3d15c979213d46f6a0c792)] Initial commit
     * [[#796eb81](https://github.com/HLWeil/DrBiber/commit/796eb814971b24bfb98d04a475938a9ed223050b)] setup project structure
     * [[#f1d71c2](https://github.com/HLWeil/DrBiber/commit/f1d71c26f1b1df7b62f835eebe48d54bb49daa9f)] first draft of entry parser
@@ -13,3 +15,4 @@
 * Bugfixes:
     * [[#e0076f9](https://github.com/HLWeil/DrBiber/commit/e0076f995ec16da5b081cedccf6b5e794c3fe1c8)] add first tests and fix accordingly
     * [[#f3c549c](https://github.com/HLWeil/DrBiber/commit/f3c549c65cd090cfe207552eb062b7aac814d50b)] fix field parsing according to tests
+
