@@ -3,7 +3,7 @@ FSharp BibTex file parser.
 
 | Version | Downloads |
 | :--------|-----------:|
-|<a href="https://www.nuget.org/packages/ARCtrl/"><img alt="Nuget" src="https://img.shields.io/nuget/v/ARCtrl?logo=nuget&color=%234fb3d9"></a>|<a href="https://www.nuget.org/packages/ARCtrl/"><img alt="Nuget" src="https://img.shields.io/nuget/dt/ARCtrl?color=%234FB3D9"></a>|
+|<a href="https://www.nuget.org/packages/DrBiber/"><img alt="Nuget" src="https://img.shields.io/nuget/v/DrBiber?logo=nuget&color=%239f8170"></a>|<a href="https://www.nuget.org/packages/DrBiber/"><img alt="Nuget" src="https://img.shields.io/nuget/dt/DrBiber?color=%239f8170"></a>|
 
 ## Usage
 
