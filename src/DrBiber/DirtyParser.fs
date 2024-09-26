@@ -17,40 +17,44 @@ let tryParseBibtexField (i : int) (bibtex:string) =
     let mutable i = i
     let mutable afterEquals = false
     let mutable insideBrace : char option = None
+    let mutable braceCount = 0
     let nameBuilder = new StringBuilder()
     let valueBuilder = new StringBuilder()
     let returnName() = Some (nameBuilder.ToString().Trim().ToLower(), valueBuilder.ToString().Trim()), i
     let rec loop() = 
         let current = bibtex.[i]
-        if current = ',' && insideBrace.IsNone then
-            returnName()
-        elif current = '}' && insideBrace = Some '{' then
-            returnName()
-        elif current = '}' && insideBrace = None && afterEquals then
-            returnName()
-        elif current = '{' && insideBrace = None then
+        match current with
+        | '=' when insideBrace.IsNone -> afterEquals <- true; i <- i + 1; loop()
+
+        | ',' when insideBrace.IsNone -> returnName()
+
+        | '}' when insideBrace = Some '{' && braceCount < 2 -> returnName()
+        | '}' when insideBrace = Some '{' -> 
+            valueBuilder.Append(current) |> ignore
+            braceCount <- braceCount - 1
+            i <- i + 1; loop()
+        | '}' when insideBrace = None && afterEquals -> returnName()
+        | '}' when insideBrace = None -> None, i
+
+        | '{' when insideBrace.IsSome -> 
+            valueBuilder.Append(current) |> ignore
+            braceCount <- braceCount + 1
+            i <- i + 1; loop()
+        | '{' when insideBrace = None ->             
             insideBrace <- Some '{'
-            i <- i + 1
-            loop()
-        elif current = '\"' && insideBrace = Some  '\"' then
-            returnName()
-        elif current = '\"' && insideBrace = None then
-            insideBrace <- Some '\"'
-            i <- i + 1
-            loop()
-        elif current = '=' && insideBrace.IsNone then
-            afterEquals <- true
-            i <- i + 1
-            loop()
-        elif current = '}' && insideBrace = None then
-            None, i
-        else
+            braceCount <- braceCount + 1
+            i <- i + 1; loop()
+
+        | '\"' when insideBrace = Some  '\"' -> returnName()
+        | '\"' when insideBrace = None -> insideBrace <- Some '\"'; i <- i + 1; loop()
+
+        | _ ->
             if afterEquals then
                 valueBuilder.Append(current) |> ignore
             else
                 nameBuilder.Append(current) |> ignore
             i <- i + 1
-            loop()           
+            loop()
     loop()
 
 let parseCiteKey (i : int) (bibtex:string) =

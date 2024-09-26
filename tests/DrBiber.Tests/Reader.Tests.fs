@@ -6,42 +6,55 @@ open DrBiber
 open Fable.Core
 
 let tests_Field = testList "TryParseBibtexField" [
-    testCase "valueInParantheses" <| fun _ ->
+    testCase "valueInQuotes" <| fun _ ->
         let testLine = "title = \"Title of the book\","
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
         Expect.equal value "Title of the book" "Should have correct value"
+
     testCase "valueInBrackets" <| fun _ ->
         let testLine = "title = {Let's eat grandpa}"
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
         Expect.equal value "Let's eat grandpa" "Should have correct value"
+
     testCase "valueInBracketsWithComma" <| fun _ ->
         let testLine = "title = {Let's eat, grandpa}"
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
         Expect.equal value "Let's eat, grandpa" "Should have correct value"
+
     testCase "valueNoBracketsComma" <| fun _ ->
         let testLine = "title = 123123,"
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
         Expect.equal value "123123" "Should have correct value"
+
     testCase "valueNoBracketsEndBracket" <| fun _ ->
         let testLine = "title = 123123}"
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
         Expect.equal value "123123" "Should have correct value"
+
     testCase "valueInBracketsAdditionalBrackets" <| fun _ ->
-        let testLine = "title = Some words{in curly brackets}}"
+        let testLine = "title = {Some words{in curly brackets}}"
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
         Expect.equal value "Some words{in curly brackets}" "Should have correct value"
+
+    testCase "valueInQuotesAdditionalBrackets" <| fun _ ->
+        let testLine = "title = \"Some words{in curly brackets}\""
+        let field,i = DirtyParser.tryParseBibtexField 0 testLine
+        let name,value = Expect.wantSome field "Should have parsed field"
+        Expect.equal name "title" "Should have correct name"
+        Expect.equal value "Some words{in curly brackets}" "Should have correct value"
+
     testCase "valueInBracketsSpecielChar" <| fun _ ->
         let testLine = "author = {Uflewski, Michał}"
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
