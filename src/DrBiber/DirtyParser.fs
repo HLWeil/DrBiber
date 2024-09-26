@@ -19,7 +19,7 @@ let tryParseBibtexField (i : int) (bibtex:string) =
     let mutable insideBrace : char option = None
     let nameBuilder = new StringBuilder()
     let valueBuilder = new StringBuilder()
-    let returnName() = Some (nameBuilder.ToString().Trim(), valueBuilder.ToString().Trim()), i
+    let returnName() = Some (nameBuilder.ToString().Trim().ToLower(), valueBuilder.ToString().Trim()), i
     let rec loop() = 
         let current = bibtex.[i]
         if current = ',' && insideBrace.IsNone then
@@ -87,7 +87,7 @@ let parseBibTexEntry (i : int) (bibtex:string) =
     let rec loop() = 
         let current = bibtex.[i]
         if current = '}' then
-            entry
+            entry, i
         elif current = ',' then
             let kv,j = tryParseBibtexField (i+1) bibtex
             match kv with
@@ -107,3 +107,18 @@ let parseBibTexEntry (i : int) (bibtex:string) =
                 i <- j
             loop()
     loop()
+
+let parseBibTex (bibtex:string) =
+    let rec loop (i : int) (entries : BibTexEntry list) =
+        if i = bibtex.Length then 
+            entries |> List.rev
+        elif bibtex.[i] = '@' then
+            let entry, i = parseBibTexEntry (i + 1) bibtex
+            loop (i + 1) (entry::entries)
+        else
+            loop (i + 1) entries
+    loop 0 []
+
+let parseBibTexFile (path : string) =
+    let s = System.IO.File.ReadAllText path
+    parseBibTex s
