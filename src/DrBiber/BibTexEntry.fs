@@ -23,6 +23,8 @@ type BibTexEntry(entryType : string, citekey : string, ?attributes : Dictionary<
     member this.TryGetDOI() = this.TryGetPropertyValue("doi")
 
     member this.TryGetAuthor() = this.TryGetPropertyValue("author")
+    
+    member this.TryGetAbstract() = this.TryGetPropertyValue("abstract")
 
     member this.TryGetYear() = this.TryGetPropertyValue("year")
 
@@ -51,6 +53,8 @@ type BibTexEntry(entryType : string, citekey : string, ?attributes : Dictionary<
     member this.SetDOI(name, value) = this.SetProperty("doi", value)
 
     member this.SetAuthor(name, value) = this.SetProperty("author", value)
+    
+    member this.SetAbstract(name, value) = this.SetProperty("abstract", value)
 
     member this.SetYear(name, value) = this.SetProperty("year", value)
 
