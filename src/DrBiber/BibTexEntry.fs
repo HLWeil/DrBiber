@@ -19,6 +19,8 @@ type BibTexEntry(entryType : string, citekey : string, ?attributes : Dictionary<
     member this.CiteKey = citekey
 
     member this.TryGetTitle() = this.TryGetPropertyValue("title")
+    
+    member this.TryGetDOI() = this.TryGetPropertyValue("doi")
 
     member this.TryGetAuthor() = this.TryGetPropertyValue("author")
 
@@ -45,6 +47,8 @@ type BibTexEntry(entryType : string, citekey : string, ?attributes : Dictionary<
     member this.TryGetAddress() = this.TryGetPropertyValue("address")
 
     member this.SetTitle(name, value) = this.SetProperty("title", value)
+    
+    member this.SetDOI(name, value) = this.SetProperty("doi", value)
 
     member this.SetAuthor(name, value) = this.SetProperty("author", value)
 
