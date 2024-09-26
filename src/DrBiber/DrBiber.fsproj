@@ -11,10 +11,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Authors>Heinrich Lukas Weil</Authors>
+    <Authors>Heinrich Lukas Weil, Dominik Brilhaus</Authors>
     <Description>F# library for BibTex parsing.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://csbiology.github.io/DynamicObj/</PackageProjectUrl>
     <PackageTags>F# FSharp dotnet BibTex BIB</PackageTags>
     <RepositoryUrl>https://github.com/HLWeil/DrBiber</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
