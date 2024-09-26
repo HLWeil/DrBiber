@@ -44,7 +44,7 @@ let tests_Entry = testList "TryParseBibTexEntry" [
         let p = __SOURCE_DIRECTORY__ + "/TestFiles/SingleEntry_Mixed.bib"
         let s = System.IO.File.ReadAllText p
         let i = s.IndexOf('@')
-        let entry = DirtyParser.parseBibTexEntry (i + 1) s
+        let entry,i = DirtyParser.parseBibTexEntry (i + 1) s
         
         Expect.equal entry.EntryType "article" "Should have correct entry type"
         Expect.equal entry.CiteKey (Some "qiao_legume_2024") "Should have correct citekey"
@@ -57,8 +57,22 @@ let tests_Entry = testList "TryParseBibTexEntry" [
 ] 
 
 let tests_File = testList "TryParseBibTexFile" [
-    ptestCase "mutable" <| fun _ ->
-        Expect.isFalse true "Not implemented"
+    testCase "SingleEntry" <| fun _ ->
+        let p = __SOURCE_DIRECTORY__ + "/TestFiles/SingleEntry_Mixed.bib"
+        let s = System.IO.File.ReadAllText p
+        let entries = DirtyParser.parseBibTex s
+        Expect.hasLength entries 1 "Should have one entry"
+        let entry = entries.[0]
+        Expect.equal entry.EntryType "article" "Should have correct entry type"
+        Expect.equal entry.CiteKey (Some "qiao_legume_2024") "Should have correct citekey"
+
+        let volume = Expect.wantSome (entry.TryGetValue "volume") "Should have volume"
+        Expect.equal volume "15" "Should have correct volume"
+
+        let pages = Expect.wantSome (entry.TryGetValue "pages") "Should have pages"
+        Expect.equal pages "2924" "Should have correct pages"
+
+
 ]
 
 let main = testList "Reader" [
