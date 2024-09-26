@@ -41,7 +41,14 @@ let tests_Field = testList "TryParseBibtexField" [
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
-        Expect.equal value "Some words{in curly brackets}" "Should have correct value"        
+        Expect.equal value "Some words{in curly brackets}" "Should have correct value"
+    testCase "valueInBracketsSpecielChar" <| fun _ ->
+        let testLine = "author = {Uflewski, Michał}"
+        let field,i = DirtyParser.tryParseBibtexField 0 testLine
+        let name,value = Expect.wantSome field "Should have parsed field"
+        Expect.equal name "author" "Should have correct name"
+        Expect.equal value "Uflewski, Michał" "Should have correct value"
+        
 ]
 
 
@@ -89,8 +96,12 @@ let tests_File = testList "TryParseBibTexFile" [
         Expect.isTrue (entries.Length >= 1) "Should have one or more entries"
 
         let entry1 = entries.[0]
+        let entry2 = entries.[1]
                 
-        Expect.equal entry1.EntryType "article" "Should have correct entry type"
+        Expect.equal entry1.EntryType "article" "Should have correct entry type"        
+        Expect.equal entry1.CiteKey (Some "shen_arabidopsis_2024") "Should have correct citekey"
+        Expect.equal entry2.EntryType "article" "Should have correct entry type"        
+        Expect.equal entry2.CiteKey (Some "uflewski_thylakoid_2024") "Should have correct citekey"
 
 ]
 
