@@ -24,16 +24,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="DataModel.fs" />
+    <Compile Include="BibTexEntry.fs" />
     <Compile Include="DirtyParser.fs" />
     <None Include="Playground.fsx" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="DynamicObj" Version="3.1.0" />
+    <PackageReference Include="DynamicObj" Version="4.0.0" />
     <PackageReference Include="Fable.Core" Version="4.3.0" />
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="8.0.400" />
   </ItemGroup>
   
 </Project>
