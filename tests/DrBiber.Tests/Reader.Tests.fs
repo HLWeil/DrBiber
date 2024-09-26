@@ -35,7 +35,13 @@ let tests_Field = testList "TryParseBibtexField" [
         let field,i = DirtyParser.tryParseBibtexField 0 testLine
         let name,value = Expect.wantSome field "Should have parsed field"
         Expect.equal name "title" "Should have correct name"
-        Expect.equal value "123123" "Should have correct value"        
+        Expect.equal value "123123" "Should have correct value"
+    testCase "valueInBracketsAdditionalBrackets" <| fun _ ->
+        let testLine = "title = Some words{in curly brackets}}"
+        let field,i = DirtyParser.tryParseBibtexField 0 testLine
+        let name,value = Expect.wantSome field "Should have parsed field"
+        Expect.equal name "title" "Should have correct name"
+        Expect.equal value "Some words{in curly brackets}" "Should have correct value"        
 ]
 
 
@@ -72,6 +78,19 @@ let tests_File = testList "TryParseBibTexFile" [
         let pages = Expect.wantSome (entry.TryGetValue "pages") "Should have pages"
         Expect.equal pages "2924" "Should have correct pages"
 
+    testCase "MultipleEntries" <| fun _ ->
+        let p = __SOURCE_DIRECTORY__ + "/TestFiles/MultipleEntries.bib"
+        let s = System.IO.File.ReadAllText p
+        let entries = DirtyParser.parseBibTex s
+        Expect.hasLength entries 3 "Should have one entry"
+
+        Expect.isTrue (entries.Length > 1) "Should have more than one entry"
+        
+        Expect.isTrue (entries.Length >= 1) "Should have one or more entries"
+
+        let entry1 = entries.[0]
+                
+        Expect.equal entry1.EntryType "article" "Should have correct entry type"
 
 ]
 
