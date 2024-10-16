@@ -14,7 +14,6 @@ initializeContext()
 open BasicTasks
 open TestTasks
 open PackageTasks
-open DocumentationTasks
 open ReleaseTasks
 
 /// Full release of nuget package, git tag, and documentation for the stable version.

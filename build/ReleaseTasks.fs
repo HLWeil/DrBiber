@@ -5,7 +5,6 @@ open ProjectInfo
 open BasicTasks
 open TestTasks
 open PackageTasks
-open DocumentationTasks
 open Helpers
 
 open BlackFox.Fake
@@ -124,32 +123,5 @@ let publishPyPiPrerelease = BuildTask.create "PublishPyPiPrerelease" [clean; bui
             run python $"-m poetry config pypi-token.pypi {key}" ProjectInfo.pyPkgDir
         | None -> ()
         run python "-m poetry publish --build" ProjectInfo.pyPkgDir
-    else failwith "aborted"
-}
-
-let releaseDocs =  BuildTask.create "ReleaseDocs" [buildDocs] {
-    let msg = sprintf "release docs for version %s?" stableVersionTag
-    if promptYesNo msg then
-        Shell.cleanDir "temp"
-        Git.CommandHelper.runSimpleGitCommand "." (sprintf "clone %s temp/gh-pages --depth 1 -b gh-pages" projectRepo) |> ignore
-        Shell.copyRecursive "output" "temp/gh-pages" true |> printfn "%A"
-        Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" "add ." |> printfn "%s"
-        let cmd = sprintf """commit -a -m "Update generated documentation for version %s""" stableVersionTag
-        Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" cmd |> printfn "%s"
-        Git.Branches.push "temp/gh-pages"
-    else failwith "aborted"
-}
-
-let prereleaseDocs =  BuildTask.create "PrereleaseDocs" [buildDocsPrerelease] {
-    let prereleaseTag = PreReleaseFlag.toPyPITag release.SemVer prereleaseSuffix prereleaseSuffixNumber
-    let msg = sprintf "release docs for version %s?" prereleaseTag
-    if promptYesNo msg then
-        Shell.cleanDir "temp"
-        Git.CommandHelper.runSimpleGitCommand "." (sprintf "clone %s temp/gh-pages --depth 1 -b gh-pages" projectRepo) |> ignore
-        Shell.copyRecursive "output" "temp/gh-pages" true |> printfn "%A"
-        Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" "add ." |> printfn "%s"
-        let cmd = sprintf """commit -a -m "Update generated documentation for version %s""" prereleaseTag
-        Git.CommandHelper.runSimpleGitCommand "temp/gh-pages" cmd |> printfn "%s"
-        Git.Branches.push "temp/gh-pages"
     else failwith "aborted"
 }
