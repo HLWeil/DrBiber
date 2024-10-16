@@ -33,7 +33,10 @@ let tryParseBibtexField (i : int) (bibtex:string) =
             valueBuilder.Append(current) |> ignore
             braceCount <- braceCount - 1
             i <- i + 1; loop()
-        | '}' when insideBrace = None && afterEquals -> returnName()
+        | '}' when insideBrace = None && afterEquals -> 
+            printfn "this case is hit"
+            i <- i - 1;
+            returnName()
         | '}' when insideBrace = None -> None, i
 
         | '{' when insideBrace.IsSome -> 

@@ -80,6 +80,20 @@ let tests_Entry = testList "TryParseBibTexEntry" [
 
         let pages = Expect.wantSome (entry.TryGetPropertyValue "pages") "Should have pages"
         Expect.equal pages "2924" "Should have correct pages"
+    testCase "CrossrefAPI" <| fun _ ->
+        let p = __SOURCE_DIRECTORY__ + "/TestFiles/SingleEntry_CrossrefAPI.bib"
+        let s = System.IO.File.ReadAllText p
+        let i = s.IndexOf('@')
+        let entry,i = DirtyParser.parseBibTexEntry (i + 1) s
+        
+        Expect.equal entry.EntryType "article" "Should have correct entry type"
+        Expect.equal entry.CiteKey "Guichard_2024" "Should have correct citekey"
+
+        let volume = Expect.wantSome (entry.TryGetPropertyValue "volume") "Should have volume"
+        Expect.equal volume "14" "Should have correct volume"
+
+        let month = Expect.wantSome (entry.TryGetPropertyValue "month") "Should have pages"
+        Expect.equal month "jun" "Should have correct pages"
 ] 
 
 let tests_File = testList "TryParseBibTexFile" [
