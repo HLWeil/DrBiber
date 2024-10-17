@@ -3,15 +3,6 @@
 open System
 open FSharpAux
 open System.Text
-open System.Text.RegularExpressions
-
-[<Literal>]
-let BibitemSplitRegex = @".*@(?<type>[^{]+){(?<id>[^,]*),(?<body>.+)}"
-
-// let BibitemBodyAttributesRegex = @"(?<attribute>[^{}]*)\s*=\s*\{(?<value>(?:[^{}]|(?<open>\{)|(?<-open>\}))*(?(open)(?!)))\}(,|$)"
-[<Literal>]
-let BibitemBodyAttributesRegex = @"(?<attribute>[^{}]*)\s*=\s*\{(?<value>[^{}]*)\}(,|$)"
-
 
 let tryParseBibtexField (i : int) (bibtex:string) =
     let mutable i = i
@@ -34,7 +25,6 @@ let tryParseBibtexField (i : int) (bibtex:string) =
             braceCount <- braceCount - 1
             i <- i + 1; loop()
         | '}' when insideBrace = None && afterEquals -> 
-            printfn "this case is hit"
             i <- i - 1;
             returnName()
         | '}' when insideBrace = None -> None, i
@@ -86,10 +76,10 @@ let parseType (i : int) (bibtex:string) =
             loop()           
     loop()
 
-let parseBibTexEntry (i : int) (bibtex:string) =
+let bibTeXEntryFromString (i : int) (bibtex:string) =
     let entryType, i = parseType i bibtex
     let citeKey, i = parseCiteKey (i+1) bibtex
-    let entry = BibTexEntry(entryType, citeKey)
+    let entry = BibTeXEntry(entryType, citeKey)
     let mutable i = i + 1
     let rec loop() = 
         let current = bibtex.[i]
@@ -115,17 +105,57 @@ let parseBibTexEntry (i : int) (bibtex:string) =
             loop()
     loop()
 
-let parseBibTex (bibtex:string) =
-    let rec loop (i : int) (entries : BibTexEntry list) =
+[<Obsolete>]
+let parseBibTexEntry = bibTeXEntryFromString
+
+
+let bibTeXFromString (bibtex:string) =
+    let rec loop (i : int) (entries : BibTeXEntry list) =
         if i = bibtex.Length then 
             entries |> List.rev
         elif bibtex.[i] = '@' then
-            let entry, i = parseBibTexEntry (i + 1) bibtex
+            let entry, i = bibTeXEntryFromString (i + 1) bibtex
             loop (i + 1) (entry::entries)
         else
             loop (i + 1) entries
     loop 0 []
 
-let parseBibTexFile (path : string) =
+[<Obsolete>]
+let parseBibTex = bibTeXFromString
+
+let bibTeXFromFile (path : string) =
     let s = System.IO.File.ReadAllText path
-    parseBibTex s
+    bibTeXFromString s
+
+[<Obsolete>]
+let parseBibTexFile = bibTeXFromFile
+
+let bibTeXEntryToString (entry : BibTeXEntry) =
+    let sb = new StringBuilder()
+    sb.Append("@") |> ignore
+    sb.Append(entry.EntryType) |> ignore
+    sb.Append("{") |> ignore
+    sb.Append(entry.CiteKey) |> ignore
+    sb.Append(",\n") |> ignore
+ 
+    entry.Properties
+    |> Seq.iteri (fun i kv ->
+        sb.Append("\t" + kv.Key)   |> ignore
+        sb.Append(" = {")   |> ignore
+        sb.Append(kv.Value) |> ignore
+        let endString = if i + 1 = entry.Properties.Count then "}\n" else "},\n"
+        sb.Append(endString) |> ignore
+    )
+    sb.Append("}") |> ignore
+    sb.ToString()
+
+
+let bibTeXToString (entries : BibTeXEntry list) =
+    let sb = new StringBuilder()
+    for entry in entries do
+        sb.Append(bibTeXEntryToString entry) |> ignore
+        sb.Append("\n\n") |> ignore
+    sb.ToString()
+
+let bibTeXToFile (path : string) (entries : BibTeXEntry list) =
+    System.IO.File.WriteAllText(path, bibTeXToString entries)

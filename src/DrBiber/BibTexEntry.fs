@@ -3,7 +3,7 @@
 open DynamicObj
 open System.Collections.Generic
 
-type BibTexEntry(entryType : string, citekey : string, ?attributes : Dictionary<string,string>) as this =
+type BibTeXEntry(entryType : string, citekey : string, ?attributes : Dictionary<string,string>) as this =
     
     inherit DynamicObj()
 
@@ -77,3 +77,7 @@ type BibTexEntry(entryType : string, citekey : string, ?attributes : Dictionary<
     member this.SetSeries(name, value) = this.SetProperty("series", value)
 
     member this.SetAddress(name, value) = this.SetProperty("address", value)
+
+
+[<System.Obsolete>]
+type BibTexEntry = BibTeXEntry

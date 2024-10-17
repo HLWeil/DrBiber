@@ -1,3 +1,9 @@
+### 0.1.0+f140c4d (Released 2024-10-17)
+* Additions:
+    * [[#43cc05f](https://github.com/HLWeil/DrBiber/commit/43cc05ffcc6a287fc71afc56273ae1eb78a65209)] bump to 0.0.3
+    * [[#11b3b93](https://github.com/HLWeil/DrBiber/commit/11b3b93f9d87db2aad3a5f35ff0532dcf86ae33a)] add writing logic
+    * [[#f140c4d](https://github.com/HLWeil/DrBiber/commit/f140c4d966bf2eb64951fd70d9eac843e536422b)] various cleanups and corrections
+
 ### 0.0.3+44853e0 (Released 2024-10-16)
 * Deletions:
     * [[#44853e0](https://github.com/HLWeil/DrBiber/commit/44853e0466c882058c1ae89174e3d4679e1bb1d7)] remove docs targets from build

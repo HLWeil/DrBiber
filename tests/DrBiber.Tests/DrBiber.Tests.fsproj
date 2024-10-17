@@ -10,12 +10,12 @@
   <ItemGroup>
     <None Include="TestFiles/SingleEntry_CrossrefAPI.bib" />
     <None Include="TestFiles/SingleEntry_Mixed.bib" />
+    <None Include="TestFiles/SingleEntry_BracketsOnly.bib" />
     <None Include="TestFiles/MultipleEntries.bib" />
     <Compile Include="Reader.Tests.fs" />
+    <Compile Include="Writer.Tests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
-
-  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Fable.Pyxpecto" Version="1.2.0" />
