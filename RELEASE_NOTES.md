@@ -1,3 +1,9 @@
+### 0.0.3+44853e0 (Released 2024-10-16)
+* Deletions:
+    * [[#44853e0](https://github.com/HLWeil/DrBiber/commit/44853e0466c882058c1ae89174e3d4679e1bb1d7)] remove docs targets from build
+* Bugfixes:
+    * [[#f229e34](https://github.com/HLWeil/DrBiber/commit/f229e341dbf963b7f08802b19712ecebbc8fdded)] hotfix reader failing for files coming from crossref
+
 ### 0.0.2+15221cf (Released 2024-9-26)
 * Additions:
     * [[#15221cf](https://github.com/HLWeil/DrBiber/commit/15221cf285af3eb4ec002fa805039fc53262b5b5)] parse abstract

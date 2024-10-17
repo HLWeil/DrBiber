@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="TestFiles/SingleEntry_CrossrefAPI.bib" />
     <None Include="TestFiles/SingleEntry_Mixed.bib" />
     <None Include="TestFiles/MultipleEntries.bib" />
     <Compile Include="Reader.Tests.fs" />
