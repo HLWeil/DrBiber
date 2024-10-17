@@ -76,7 +76,7 @@ let parseType (i : int) (bibtex:string) =
             loop()           
     loop()
 
-let parseBibTexEntry (i : int) (bibtex:string) =
+let bibTeXEntryFromString (i : int) (bibtex:string) =
     let entryType, i = parseType i bibtex
     let citeKey, i = parseCiteKey (i+1) bibtex
     let entry = BibTeXEntry(entryType, citeKey)
@@ -105,26 +105,30 @@ let parseBibTexEntry (i : int) (bibtex:string) =
             loop()
     loop()
 
+[<Obsolete>]
+let parseBibTexEntry = bibTeXEntryFromString
 
-let bibTeXEntryFromString (bibtex:string) =
+
+let bibTeXFromString (bibtex:string) =
     let rec loop (i : int) (entries : BibTeXEntry list) =
         if i = bibtex.Length then 
             entries |> List.rev
         elif bibtex.[i] = '@' then
-            let entry, i = parseBibTexEntry (i + 1) bibtex
+            let entry, i = bibTeXEntryFromString (i + 1) bibtex
             loop (i + 1) (entry::entries)
         else
             loop (i + 1) entries
     loop 0 []
 
 [<Obsolete>]
-let parseBibTex = bibTeXEntryFromString
+let parseBibTex = bibTeXFromString
 
-let bibTeXEntriesFromFile (path : string) =
+let bibTeXFromFile (path : string) =
     let s = System.IO.File.ReadAllText path
-    bibTeXEntryFromString s
+    bibTeXFromString s
 
-let parseBibTexFile = bibTeXEntriesFromFile
+[<Obsolete>]
+let parseBibTexFile = bibTeXFromFile
 
 let bibTeXEntryToString (entry : BibTeXEntry) =
     let sb = new StringBuilder()
@@ -145,9 +149,13 @@ let bibTeXEntryToString (entry : BibTeXEntry) =
     sb.Append("}") |> ignore
     sb.ToString()
 
-let bibTeXEntriesToFile (path : string) (entries : BibTeXEntry list) =
+
+let bibTeXToString (entries : BibTeXEntry list) =
     let sb = new StringBuilder()
     for entry in entries do
         sb.Append(bibTeXEntryToString entry) |> ignore
         sb.Append("\n\n") |> ignore
-    System.IO.File.WriteAllText(path, sb.ToString())
+    sb.ToString()
+
+let bibTeXToFile (path : string) (entries : BibTeXEntry list) =
+    System.IO.File.WriteAllText(path, bibTeXToString entries)

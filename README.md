@@ -29,10 +29,10 @@ let s = """
 
 
 ### Reading
-You can parse using the DirtyParser™️:
+You can read using the DirtyParser™️:
 
 ```fsharp
-let entries = DirtyParser.parseBibTex s
+let entries = DirtyParser.bibTexFromString s
 
 let myEntry = entries.Head
 ```
@@ -41,6 +41,28 @@ let myEntry = entries.Head
 val entries: BibTexEntry list = [DrBiber.BibTexEntry]
 val myEntry: BibTexEntry
 ```
+
+### Writing
+You can write using the DirtyParser™️:
+
+```fsharp
+bibTeXToString myFilePath entries
+```
+->
+```
+val it: string =
+  "@article{qiao_legume_2024,
+	title = {Legume rhizodeposition promotes nitrogen fixation by soil microbiota under crop diversification},
+	volume = {15},
+	issn = {2041-1723},
+	url = {https://www.nature.com/articles/s41467-024-47159-x},
+	doi = {10.1038/s41467-024-47159-x},
+	pages = {2924}
+}
+
+"
+```
+
 
 ### Access
 
